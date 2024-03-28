@@ -1,0 +1,67 @@
+version: "3"
+services:
+  web:
+    image: nginx:1.25
+    working_dir: /var/www/html/sunday
+    container_name: "${COMPOSE_PROJECT_NAME}_server"
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    profiles: ["sunday_server"]
+    depends_on:
+      - next
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - "./sunday:/var/www/html/sunday"
+      - "./config/nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./config/nginx/default.conf:/etc/nginx/sites-enabled"
+      #- "./config/nginx/conf:/etc/nginx/conf.d/"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=sunday-proxy"
+      - "traefik.http.routers.sunday-secure.entrypoints=websecure"
+      - "traefik.http.routers.sunday-secure.rule=Host(`qrsunday.ephraimbokuma.com`)"
+      - "traefik.http.middlewares.sunday-https.redirectscheme.scheme=https"
+        #- "traefik.http.routers.nginx-http.middlewares=whoami-https"
+        #- "traefik.http.routers.nginx.tls=true"
+      # - "traefik.http.routers.traefik-secure.service=api@internal"
+      - "traefik.http.routers.sunday-secure.service=sunday-server-sunday"
+      - "traefik.http.services.sunday-server-sunday.loadbalancer.server.port=80"
+    environment:
+      NGINX_HOST: "qrsunday.ephraimbokuma.com"
+      NGINX_PORT: "80"
+    command: ['nginx', '-g', 'daemon off;']
+    networks:
+      - sunday-proxy
+  
+  next:
+    user: node
+    build:
+      context: ./sunday
+      dockerfile: Dockerfile
+      args:
+        ENV_VARIABLE: "${ENV_VARIABLE}"
+        NEXT_PUBLIC_ENV_VARIABLE: "${NEXT_PUBLIC_ENV_VARIABLE}"
+    container_name: "${COMPOSE_PROJECT_NAME}_next"
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    profiles: ["sunday_app"]
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=sunday-proxy"
+      - "traefik.http.routers.next-secure.entrypoints=websecure"
+      - "traefik.http.routers.next-secure.rule=Host(`qrsunday.ephraimbokuma.com`)"
+      - "traefik.http.middlewares.next-https.redirectscheme.scheme=https"
+        #- "traefik.http.routers.nginx-http.middlewares=whoami-https"
+        #- "traefik.http.routers.nginx.tls=true"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+      - "traefik.http.routers.next-secure.service=next-server-next"
+      - "traefik.http.services.next-server-next.loadbalancer.server.port=3000"
+    stdin_open: true
+    tty: true
+    networks:
+      - sunday-proxy
+
+networks:
+  sunday-proxy:
+    external: true
