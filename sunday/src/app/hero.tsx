@@ -17,7 +17,7 @@ function Hero() {
               variant="lead"
               className="mb-7 !text-white md:pr-16 xl:pr-28"
             >
-              Unlocking Tomorrow's Potential: Pioneering Innovation for a World Transformed, One Revolutionary Solution at a Time!
+            Word wording wornosnfjn sdnomjnskldmnd onmsdklosidndoms ndiomknd 
             </Typography>
             <Typography className="mb-4" color="white" variant="h6">
               Get the app
