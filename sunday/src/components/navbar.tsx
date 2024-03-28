@@ -71,7 +71,7 @@ export function Navbar() {
           as="a"
           href="/"
           variant="h6"
-          color={isScrolling ? "gray" : "white"}
+          color={isScrolling ? "blue" : "white"}
         >
           <Image
           width={128}
@@ -80,11 +80,11 @@ export function Navbar() {
           alt="QR Sunday"
           src="/image/qr_logo_background.png"
         />
-          QR Sunday
+          Sunday
         </Typography>
         <ul
           className={`ml-10 hidden items-center gap-6 lg:flex ${
-            isScrolling ? "text-gray-900" : "text-white"
+            isScrolling ? "text-blue-900" : "text-white"
           }`}
         >
           <NavItem>Accueil</NavItem>
@@ -94,27 +94,27 @@ export function Navbar() {
         <div className="hidden gap-2 lg:flex lg:items-center">
           <IconButton
             variant="text"
-            color={isScrolling ? "gray" : "white"}
+            color={isScrolling ? "blue" : "white"}
             size="sm"
           >
             <i className="fa-brands fa-twitter text-base" />
           </IconButton>
           <IconButton
             variant="text"
-            color={isScrolling ? "gray" : "white"}
+            color={isScrolling ? "blue" : "white"}
             size="sm"
           >
             <i className="fa-brands fa-facebook text-base" />
           </IconButton>
           <IconButton
             variant="text"
-            color={isScrolling ? "gray" : "white"}
+            color={isScrolling ? "blue" : "white"}
             size="sm"
           >
             <i className="fa-brands fa-instagram text-base" />
           </IconButton>
           <a href="#">
-            <Button color={isScrolling ? "gray" : "white"} size="sm">
+            <Button color={isScrolling ? "blue" : "white"} size="sm">
               Connexion
             </Button>
           </a>

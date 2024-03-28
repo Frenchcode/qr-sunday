@@ -7,18 +7,17 @@ import { Button, Typography } from "@material-tailwind/react";
 function Hero() {
   return (
     <div className="relative min-h-screen w-full">
-      <header className="grid !min-h-[49rem] bg-gray-900 px-8">
+      <header className="grid !min-h-[49rem]  bg-blue-900 px-8">
         <div className="container mx-auto mt-32 grid h-full w-full grid-cols-1 place-items-center lg:mt-14 lg:grid-cols-2">
           <div className="col-span-1">
             <Typography variant="h1" color="white" className="mb-4">
-              Your Perfect <br /> Learning App
+              SUNDAY <br /> Your innovative solution
             </Typography>
             <Typography
               variant="lead"
               className="mb-7 !text-white md:pr-16 xl:pr-28"
             >
-              Our app is here to empower you on your quest for knowledge,
-              anytime and anywhere.
+              Unlocking Tomorrow's Potential: Pioneering Innovation for a World Transformed, One Revolutionary Solution at a Time!
             </Typography>
             <Typography className="mb-4" color="white" variant="h6">
               Get the app
